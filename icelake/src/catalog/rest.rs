@@ -162,7 +162,8 @@ impl RestCatalog {
         let rest_catalog_config = RestCatalogConfig::try_from((base_config, &rest_configs))?;
         let catalog_config =
             RestCatalog::init_config_from_server(rest_catalog_config, rest_configs).await?;
-        let endpoints = Endpoint::new(catalog_config.uri.clone());
+        // Second argument should be prefix, hardcoded as warehouse
+        let endpoints = Endpoint::new(catalog_config.uri.clone(), catalog_config.warehouse.clone().unwrap());
         let rest_client = RestCatalog::create_rest_client()?;
 
         Ok(Self {
@@ -212,7 +213,8 @@ impl RestCatalog {
         old_configs: HashMap<String, String>,
     ) -> Result<RestCatalogConfig> {
         log::info!("Creating rest catalog with user config: {old_configs:?}");
-        let endpoint = Endpoint::new(rest_catalog_config.uri.clone());
+        // Second argument should be prefix, hardcoded as warehouse
+        let endpoint = Endpoint::new(rest_catalog_config.uri.clone(), rest_catalog_config.warehouse.clone().unwrap());
         let rest_client = RestCatalog::create_rest_client()?;
 
         let resp = rest_client
@@ -268,14 +270,14 @@ impl TryFrom<(BaseCatalogConfig, &HashMap<String, String>)> for RestCatalogConfi
     }
 }
 
-// TODO: Support prefix
 struct Endpoint {
     base: String,
+    prefix: String,
 }
 
 impl Endpoint {
-    fn new(base: String) -> Self {
-        Self { base }
+    fn new(base: String, prefix: String) -> Self {
+        Self { base, prefix }
     }
     fn config(&self) -> String {
         [&self.base, PATH_V1, "config"].join("/")
@@ -285,6 +287,7 @@ impl Endpoint {
         Ok([
             &self.base,
             PATH_V1,
+            &self.prefix,
             "namespaces",
             &ns.encode_in_url()?,
             "tables",
@@ -296,6 +299,7 @@ impl Endpoint {
         Ok([
             &self.base,
             PATH_V1,
+            &self.prefix,
             "namespaces",
             &table.namespace.encode_in_url()?,
             "tables",
