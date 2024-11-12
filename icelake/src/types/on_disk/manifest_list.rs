@@ -51,7 +51,7 @@ struct ManifestListEntry {
     #[serde(default)]
     added_snapshot_id: i64,
     #[serde(default)]
-    added_data_files_count: i32,
+    added_files_count: i32,
     #[serde(default)]
     existing_data_files_count: i32,
     #[serde(default)]
@@ -91,7 +91,7 @@ impl TryFrom<ManifestListEntry> for types::ManifestListEntry {
             sequence_number: v.sequence_number,
             min_sequence_number: v.min_sequence_number,
             added_snapshot_id: v.added_snapshot_id,
-            added_data_files_count: v.added_data_files_count,
+            added_files_count: v.added_files_count,
             existing_data_files_count: v.existing_data_files_count,
             deleted_data_files_count: v.deleted_data_files_count,
             added_rows_count: v.added_rows_count,
@@ -122,7 +122,7 @@ impl From<types::ManifestListEntry> for ManifestListEntry {
             sequence_number: value.sequence_number,
             min_sequence_number: value.min_sequence_number,
             added_snapshot_id: value.added_snapshot_id,
-            added_data_files_count: value.added_data_files_count,
+            added_files_count: value.added_files_count,
             existing_data_files_count: value.existing_data_files_count,
             deleted_data_files_count: value.deleted_data_files_count,
             added_rows_count: value.added_rows_count,
@@ -278,7 +278,7 @@ mod tests {
                 sequence_number: 0,
                 min_sequence_number: 0,
                 added_snapshot_id: 1646658105718557341,
-                added_data_files_count: 3,
+                added_files_count: 3,
                 existing_data_files_count: 0,
                 deleted_data_files_count: 0,
                 added_rows_count: 3,
@@ -315,7 +315,7 @@ mod tests {
                 sequence_number: 0,
                 min_sequence_number: 0,
                 added_snapshot_id: 1646658105718557341,
-                added_data_files_count: 3,
+                added_files_count: 3,
                 existing_data_files_count: 0,
                 deleted_data_files_count: 0,
                 added_rows_count: 3,

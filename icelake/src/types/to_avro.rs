@@ -576,7 +576,7 @@ mod tests {
             "doc" : "Snapshot ID that added the manifest",
             "field-id" : 503
           }, {
-            "name" : "added_data_files_count",
+            "name" : "added_files_count",
             "type" : "int",
             "doc" : "Added entry count",
             "field-id" : 504
