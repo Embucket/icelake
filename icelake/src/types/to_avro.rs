@@ -581,12 +581,12 @@ mod tests {
             "doc" : "Added entry count",
             "field-id" : 504
           }, {
-            "name" : "existing_data_files_count",
+            "name" : "existing_files_count",
             "type" : "int",
             "doc" : "Existing entry count",
             "field-id" : 505
           }, {
-            "name" : "deleted_data_files_count",
+            "name" : "deleted_files_count",
             "type" : "int",
             "doc" : "Deleted entry count",
             "field-id" : 506
