@@ -34,7 +34,7 @@ pub struct Namespace {
 
 impl Namespace {
     /// Creates namespace
-    pub fn new(levels: impl IntoIterator<Item = impl ToString>) -> Self {
+    pub fn new(levels: impl IntoIterator<Item=impl ToString>) -> Self {
         Self {
             levels: levels.into_iter().map(|s| s.to_string()).collect(),
         }
@@ -58,7 +58,7 @@ pub struct TableIdentifier {
 
 impl TableIdentifier {
     /// Creates a full qualified table identifier from a list of names.
-    pub fn new(names: impl IntoIterator<Item = impl ToString>) -> Result<Self> {
+    pub fn new(names: impl IntoIterator<Item=impl ToString>) -> Result<Self> {
         let mut names: Vec<String> = names.into_iter().map(|s| s.to_string()).collect();
         if names.is_empty() {
             return Err(Error::new(
@@ -437,7 +437,7 @@ impl Table {
 
         // TODO: We should check schema here, but how to guarantee schema compatible such as s3, s3a
 
-        if url.host_str() != Some(op_info.name()) {
+        if url.host_str().unwrap_or("") != op_info.name() {
             return Err(Error::new(
                 ErrorKind::Unexpected,
                 format!(
